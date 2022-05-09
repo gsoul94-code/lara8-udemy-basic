@@ -29,5 +29,5 @@ Route::get('/check-age-restricted', function () {
     echo "If you in this page, that means your age is under 18";
 });
 
-Route::get('/about', [AboutController::class, 'index']);
+Route::get('/about', [AboutController::class, 'index'])->name("about-page");
 Route::get('/contact', [ContactController::class, 'index']);
