@@ -27,7 +27,8 @@
                                         <td>{{ $uData->id }}</td>
                                         <td>{{ $uData->name }}</td>
                                         <td>{{ $uData->email }}</td>
-                                        <td>{{ $uData->created_at->diffForHumans() }}</td>
+                                        {{-- <td>{{ $uData->created_at->diffForHumans() }}</td> <!-- you can use it, if you use Eloquent ORM --> --}}
+                                        <td>{{ Carbon\Carbon::parse($uData->created_at)->diffForHumans() }}</td> <!-- you can use it, if you use Query Builder -->
                                         <td>
                                             <a class="btn btn-warning">✏️ Edit</a>
                                             <a class="btn btn-danger">🗑 Delete</a>
