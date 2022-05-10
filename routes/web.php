@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AboutController;
+use App\Http\Controllers\PostCategoriesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\UserManagementController;
@@ -42,4 +43,5 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
     Route::get('/user-management', [UserManagementController::class, "index"])->name('user-management');
+    Route::get('/post-categories', [PostCategoriesController::class, "index"])->name('post-categories');
 });

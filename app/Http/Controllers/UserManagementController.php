@@ -11,6 +11,6 @@ class UserManagementController extends Controller
     public function index () {
         // $usersData = User::all(); //! using Eloquent ORM
         $usersData = DB::table("users")->get(); //! using Query Builder
-        return view("user-management", compact(['usersData']));
+        return view("admin.user-management", compact(['usersData']));
     }
 }
