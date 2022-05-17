@@ -18,7 +18,7 @@
                     <x-jet-nav-link href="{{ route('user-management') }}" :active="request()->routeIs('user-management')">
                         {{ __('User Management') }}
                     </x-jet-nav-link>
-                    <x-jet-nav-link href="{{ route('post-categories') }}" :active="request()->routeIs('post-categories')">
+                    <x-jet-nav-link href="{{ route('post-categories') }}" :active="request()->routeIs('post-categories', 'post-categories.add') ">
                         {{ __('Post Categories') }}
                     </x-jet-nav-link>
                 </div>

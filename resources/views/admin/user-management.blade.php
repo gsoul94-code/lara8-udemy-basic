@@ -1,8 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            <i class="fa-solid fa-users"></i> {{ __('User Management') }}
-        </h2>
+        <div class="font-semibold text-gray-800 leading-tight">
+            <div class="col-lg-12 text-2xl">
+                <i class="fa-fw fa-solid fa-users"></i> {{ __('User Management') }}
+            </div>
+        </div>
     </x-slot>
 
     <div class="py-12">
@@ -30,8 +32,8 @@
                                         {{-- <td>{{ $uData->created_at->diffForHumans() }}</td> <!-- you can use it, if you use Eloquent ORM --> --}}
                                         <td>{{ Carbon\Carbon::parse($uData->created_at)->diffForHumans() }}</td> <!-- you can use it, if you use Query Builder -->
                                         <td>
-                                            <a class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
-                                            <a class="btn btn-danger"><i class="fa-solid fa-trash-can"></i> Delete</a>
+                                            <a class="btn btn-sm btn-warning"><i class="fa-fw fa-solid fa-pen-to-square"></i> Edit</a>
+                                            <a class="btn btn-sm btn-danger"><i class="fa-fw fa-solid fa-trash-can"></i> Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach
