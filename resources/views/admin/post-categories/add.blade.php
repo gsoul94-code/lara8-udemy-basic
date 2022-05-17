@@ -16,6 +16,14 @@
         <div class="container">
             <div class="card">
                 <div class="row m-2 p-2">
+                    @if(session("success"))
+                    <div class="col-lg-12">
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session("success") }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    @endif
                     <div class="col-lg-12">
                         <form action="{{ route('post-categories.store') }}" method="POST">
                             @csrf
