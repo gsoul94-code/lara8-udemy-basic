@@ -38,7 +38,8 @@
                                             @if($postCat->created_at == NULL)
                                                 <span class="text-danger">No Date Set</span>
                                             @else
-                                                {{ $postCat->created_at->diffForHumans() }}
+                                                {{-- {{ $postCat->created_at->diffForHumans() }} --}}
+                                                {{ Carbon\Carbon::parse($postCat->created_at)->diffForHumans() }}
                                             @endif
                                         </td>
                                         <td>
@@ -49,6 +50,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        {{ $postCategories->links() }}
                     </div>
                 </div>
             </div>

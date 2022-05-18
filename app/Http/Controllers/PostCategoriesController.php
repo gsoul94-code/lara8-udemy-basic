@@ -12,7 +12,9 @@ class PostCategoriesController extends Controller
 {
     public function index () {
         // $postCategories = PostCategories::all();
-        $postCategories = PostCategories::latest()->get(); // filter for latest or DESC
+        // $postCategories = PostCategories::latest()->get(); // Read data filter for latest or DESC with Eloquent ORM
+        // $postCategories = DB::table("post_categories")->latest()->get(); // Read data filter for latest or DESC with Query Builder
+        $postCategories = DB::table("post_categories")->latest()->paginate(5);
         return view("admin.post-categories.index", compact(["postCategories"]));
     }
 
