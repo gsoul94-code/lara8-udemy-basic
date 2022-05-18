@@ -34,7 +34,13 @@
                                         <td>{{ $postCat->id }}</td>
                                         <td>{{ $postCat->category }}</td>
                                         <td>{{ $postCat->created_by }}</td>
-                                        <td>{{ $postCat->created_at->diffForHumans() }}</td>
+                                        <td>
+                                            @if($postCat->created_at == NULL)
+                                                <span class="text-danger">No Date Set</span>
+                                            @else
+                                                {{ $postCat->created_at->diffForHumans() }}
+                                            @endif
+                                        </td>
                                         <td>
                                             <a class="btn btn-sm btn-warning"><i class="fa-fw fa-solid fa-pen-to-square"></i> Edit</a>
                                             <a class="btn btn-sm btn-danger"><i class="fa-fw fa-solid fa-trash-can"></i> Delete</a>
