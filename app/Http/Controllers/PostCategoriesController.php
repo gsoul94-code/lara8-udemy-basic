@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\DB;
 class PostCategoriesController extends Controller
 {
     public function index () {
-        $postCategories = PostCategories::all();
+        // $postCategories = PostCategories::all();
+        $postCategories = PostCategories::latest()->get(); // filter for latest or DESC
         return view("admin.post-categories.index", compact(["postCategories"]));
     }
 
