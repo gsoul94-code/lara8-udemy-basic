@@ -14,4 +14,10 @@ class PostCategories extends Model
         "caregory",
         "created_by"
     ];
+
+    // Join table with One To One
+    public function user() {
+        // Select user table where user.id = post_categories.created_by
+        return $this->hasOne(User::class, 'id', 'created_by');
+    }
 }

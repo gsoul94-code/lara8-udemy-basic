@@ -14,7 +14,14 @@ class PostCategoriesController extends Controller
         // $postCategories = PostCategories::all();
         // $postCategories = PostCategories::latest()->get(); // Read data filter for latest or DESC with Eloquent ORM
         // $postCategories = DB::table("post_categories")->latest()->get(); // Read data filter for latest or DESC with Query Builder
-        $postCategories = DB::table("post_categories")->latest()->paginate(5);
+        // $postCategories = DB::table("post_categories")->latest()->paginate(5);
+
+        /**
+         * If you want to use Join with One To One from another table
+         * you must to use ORM concept for show or call table. Like example below.
+        */
+        $postCategories = PostCategories::latest()->paginate(5); // <-- ORM
+
         return view("admin.post-categories.index", compact(["postCategories"]));
     }
 

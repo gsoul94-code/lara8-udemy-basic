@@ -33,7 +33,7 @@
                                     <tr>
                                         <td>{{ $postCat->id }}</td>
                                         <td>{{ $postCat->category }}</td>
-                                        <td>{{ $postCat->created_by }}</td>
+                                        <td>{{ $postCat->user->name }}</td> <!-- Use One To One join table -->
                                         <td>
                                             @if($postCat->created_at == NULL)
                                                 <span class="text-danger">No Date Set</span>
