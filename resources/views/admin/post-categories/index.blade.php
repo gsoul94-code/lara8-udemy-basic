@@ -33,7 +33,8 @@
                                     <tr>
                                         <td>{{ $postCat->id }}</td>
                                         <td>{{ $postCat->category }}</td>
-                                        <td>{{ $postCat->user->name }}</td> <!-- Use One To One join table -->
+                                        {{-- <td>{{ $postCat->user->name }}</td> <!-- Use it, if you using join table with Eloquent ORM --> --}}
+                                        <td>{{ $postCat->name }}</td> <!-- Use it, if you using join table wuth Query Builder -->
                                         <td>
                                             @if($postCat->created_at == NULL)
                                                 <span class="text-danger">No Date Set</span>

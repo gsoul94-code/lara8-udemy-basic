@@ -17,10 +17,17 @@ class PostCategoriesController extends Controller
         // $postCategories = DB::table("post_categories")->latest()->paginate(5);
 
         /**
-         * If you want to use Join with One To One from another table
+         * If you want to use Join with One To One from another table with Eloquent ORM
          * you must to use ORM concept for show or call table. Like example below.
         */
-        $postCategories = PostCategories::latest()->paginate(5); // <-- ORM
+        // $postCategories = PostCategories::latest()->paginate(5); // <-- ORM
+
+        // If you want to use Join with another table using Query Builder
+        $postCategories = DB::table("post_categories")
+                            ->join("users", "post_categories.created_by", "users.id")
+                            ->select("post_categories.*", "users.name")
+                            ->latest()->paginate(5);
+
 
         return view("admin.post-categories.index", compact(["postCategories"]));
     }

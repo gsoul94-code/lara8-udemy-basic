@@ -15,9 +15,10 @@ class PostCategories extends Model
         "created_by"
     ];
 
-    // Join table with One To One
-    public function user() {
-        // Select user table where user.id = post_categories.created_by
-        return $this->hasOne(User::class, 'id', 'created_by');
-    }
+    // Eloquent ORM Join table with One To One Relationship
+    // public function user() {
+    //     // Select user table where user.id = post_categories.created_by
+    //     return $this->hasOne(User::class, 'id', 'created_by');
+    // }
+
 }
