@@ -44,6 +44,8 @@ Route::middleware([
     })->name('dashboard');
 
     Route::get('/user-management', [UserManagementController::class, "index"])->name('user-management');
+    Route::get('/user-management/remove/{id}', [UserManagementController::class, "remove"])->name('user-management.remove');
+    Route::get('/user-management/restore/{id}', [UserManagementController::class, "restore"])->name('user-management.restore');
 
     Route::get('/post-categories', [PostCategoriesController::class, "index"])->name('post-categories');
     Route::get('/post-categories/add', [PostCategoriesController::class, "add"])->name('post-categories.add');

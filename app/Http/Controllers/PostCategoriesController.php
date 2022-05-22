@@ -65,7 +65,6 @@ class PostCategoriesController extends Controller
         // PostCategories::withTrashed()->find($id)->restore(); // This is restore from laravel (default)
 
         // Custom function, if you want to restore and updating updated_by field
-        // dd($id);
         PostCategories::withTrashed()->find($id)->update([
             "updated_by" => Auth::user()->id,
             "updated_at" => Carbon::now(),
