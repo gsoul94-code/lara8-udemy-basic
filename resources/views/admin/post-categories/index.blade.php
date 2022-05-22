@@ -17,7 +17,7 @@
             <div class="card">
                 <div class="row m-2 p-2">
                     <div class="col-lg-12">
-                        <h5>Category Total : <b>{{ count($postCategories) }}</b></h5>
+                        {{-- <h5>Category Total : <b>{{ count($postCategories) }}</b></h5> --}}
                         <table class="table table-hover table-responsive table-bordered">
                             <thead>
                                 <tr>
@@ -25,6 +25,8 @@
                                     <th scope="col">Category</th>
                                     <th scope="col">Created By</th>
                                     <th scope="col">Created At</th>
+                                    <th scope="col">Updated By</th>
+                                    <th scope="col">Updated At</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
@@ -33,19 +35,34 @@
                                     <tr>
                                         <td>{{ $postCat->id }}</td>
                                         <td>{{ $postCat->category }}</td>
-                                        {{-- <td>{{ $postCat->user->name }}</td> <!-- Use it, if you using join table with Eloquent ORM --> --}}
-                                        <td>{{ $postCat->name }}</td> <!-- Use it, if you using join table wuth Query Builder -->
+                                        <td>{{ $postCat->getUserFromCreatedBy->name }}</td> <!-- Use it, if you using join table with Eloquent ORM -->
+                                        {{-- <td>{{ $postCat->name }}</td> <!-- Use it, if you using join table wuth Query Builder --> --}}
                                         <td>
                                             @if($postCat->created_at == NULL)
                                                 <span class="text-danger">No Date Set</span>
                                             @else
-                                                {{-- {{ $postCat->created_at->diffForHumans() }} --}}
-                                                {{ Carbon\Carbon::parse($postCat->created_at)->diffForHumans() }}
+                                                {{ $postCat->created_at->diffForHumans() }}
+                                                {{-- {{ Carbon\Carbon::parse($postCat->created_at)->diffForHumans() }} --}}
                                             @endif
                                         </td>
                                         <td>
-                                            <a class="btn btn-sm btn-warning"><i class="fa-fw fa-solid fa-pen-to-square"></i> Edit</a>
-                                            <a class="btn btn-sm btn-danger"><i class="fa-fw fa-solid fa-trash-can"></i> Delete</a>
+                                            @if($postCat->updated_by == NULL)
+                                                <span class="text-danger">No User Set</span>
+                                            @else
+                                                {{ $postCat->getUserFromUpdatedBy->name }}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($postCat->updated_at == NULL)
+                                                <span class="text-danger">No Date Set</span>
+                                            @else
+                                                {{ $postCat->updated_at->diffForHumans() }}
+
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ url('post-categories/edit/'.$postCat->id) }}" class="btn btn-sm btn-warning"><i class="fa-fw fa-solid fa-pen-to-square"></i> Edit</a>
+                                            <a href="" class="btn btn-sm btn-danger"><i class="fa-fw fa-solid fa-trash-can"></i> Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach
