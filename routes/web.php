@@ -42,11 +42,16 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
     Route::get('/user-management', [UserManagementController::class, "index"])->name('user-management');
+
     Route::get('/post-categories', [PostCategoriesController::class, "index"])->name('post-categories');
     Route::get('/post-categories/add', [PostCategoriesController::class, "add"])->name('post-categories.add');
     Route::post('/post-categories/store', [PostCategoriesController::class, "store"])->name("post-categories.store");
     Route::get('/post-categories/edit/{id}', [PostCategoriesController::class, "edit"])->name('post-categories.edit');
     Route::post('/post-categories/update/{id}', [PostCategoriesController::class, "update"])->name('post-categories.update');
+    Route::get('/post-categories/remove/{id}', [PostCategoriesController::class, "remove"])->name('post-categories.remove');
+    Route::get('/post-categories/restore/{id}', [PostCategoriesController::class, "restore"])->name('post-categories.restore');
+    Route::get('/post-categories/delete/{id}', [PostCategoriesController::class, "delete"])->name('post-categories.delete');
 
 });

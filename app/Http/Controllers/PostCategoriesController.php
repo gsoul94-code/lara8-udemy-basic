@@ -11,26 +11,9 @@ use Illuminate\Support\Facades\DB;
 class PostCategoriesController extends Controller
 {
     public function index () {
-        // $postCategories = PostCategories::all();
-        // $postCategories = PostCategories::latest()->get(); // Read data filter for latest or DESC with Eloquent ORM
-        // $postCategories = DB::table("post_categories")->latest()->get(); // Read data filter for latest or DESC with Query Builder
-        // $postCategories = DB::table("post_categories")->latest()->paginate(5);
-
-        /**
-         * If you want to use Join with One To One from another table with Eloquent ORM
-         * you must to use ORM concept for show or call table. Like example below.
-        */
-        // $postCategories = PostCategories::latest()->paginate(5); // <-- ORM
         $postCategories = PostCategories::orderBy("id", "DESC")->paginate(5);
-
-        // If you want to use Join with another table using Query Builder
-        // $postCategories = DB::table("post_categories")
-        //                     ->join("users", "post_categories.created_by", "users.id")
-        //                     ->select("post_categories.*", "users.name")
-        //                     ->latest()->paginate(5);
-
-
-        return view("admin.post-categories.index", compact(["postCategories"]));
+        $postCategoriesDeleted = PostCategories::onlyTrashed()->orderBy("deleted_at", "DESC")->paginate(3);
+        return view("admin.post-categories.index", compact("postCategories", "postCategoriesDeleted"));
     }
 
     public function add () {
@@ -38,38 +21,18 @@ class PostCategoriesController extends Controller
     }
 
     public function store (Request $request) {
-        $validateData = $request->validate([
+        $request->validate([
             "category" => "required|unique:post_categories|max:100"
         ],[
             "category.required" => "Please input Post Category name",
             "category.max" => "Category less then 100 chars "
         ]);
-
-        // ------ Insert with ORM
-
-        // First way
         PostCategories::insert([
             'category' => $request->category,
             'created_by' => Auth::user()->id,
             'created_at' => Carbon::now()
         ]);
-
-        // Second way | If you use this, this automaticaly submit created_at and updated_at
-        // $postCategories = new PostCategories();
-        // $postCategories->category = $request->category;
-        // $postCategories->created_by = Auth::user()->id;
-        // $postCategories->updated_by = Auth::user()->id;
-        // $postCategories->save();
-
-        // ------- Insert with Query Builder
-
-        // First way
-        // $data = array();
-        // $data['category'] = $request->category;
-        // $data['created_by'] = Auth::user()->id;
-        // DB::table("post_categories")->insert($data);
-
-        return Redirect()->back()->with("success", "Post Category inserted successfull");
+        return Redirect()->back()->with("success", "Post category has been added successfully");
     }
 
     public function edit($id) {
@@ -82,7 +45,38 @@ class PostCategoriesController extends Controller
             "category" => $request->category,
             "updated_by" => Auth::user()->id
         ]);
-        return Redirect()->back()->with("success", "Post Category updated successfull");
+        return Redirect()->back()->with("success", "Post category has been updated successfully");
+    }
+
+    public function remove($id){
+        // If you using softdelete from laravel, you can't update updated_by
+        // Therefore, you must using custome function
+        // $delete = PostCategories::find($id)->delete(); // This is softdelete from laravel (default)
+
+        // Custom function if you want to delete and updating updated_by field
+        PostCategories::find($id)->update([
+            "updated_by" => Auth::user()->id,
+            "deleted_at" => Carbon::now()
+        ]);
+        return Redirect()->back()->with("success", "Post category has been removed successfully");
+    }
+
+    public function restore($id) {
+        // PostCategories::withTrashed()->find($id)->restore(); // This is restore from laravel (default)
+
+        // Custom function, if you want to restore and updating updated_by field
+        // dd($id);
+        PostCategories::withTrashed()->find($id)->update([
+            "updated_by" => Auth::user()->id,
+            "updated_at" => Carbon::now(),
+            "deleted_at" => null
+        ]);
+        return Redirect()->back()->with("success", "Post category has been restored successfully");
+    }
+
+    public function delete($id) {
+        PostCategories::onlyTrashed()->find($id)->forceDelete();
+        return Redirect()->back()->with("success", "Post category has been deleted successfully");
 
     }
 }
