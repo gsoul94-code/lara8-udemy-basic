@@ -4,6 +4,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\PostCategoriesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PostsController;
 use App\Http\Controllers\UserManagementController;
 
 /*
@@ -55,5 +56,7 @@ Route::middleware([
     Route::get('/post-categories/remove/{id}', [PostCategoriesController::class, "remove"])->name('post-categories.remove');
     Route::get('/post-categories/restore/{id}', [PostCategoriesController::class, "restore"])->name('post-categories.restore');
     Route::get('/post-categories/delete/{id}', [PostCategoriesController::class, "delete"])->name('post-categories.delete');
+
+    Route::get('/posts', [PostsController::class, "index"])->name('posts');
 
 });
